@@ -1,206 +1,217 @@
-/* this needs to be deleted too this is a temp font */
-
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;700&display=swap');
-
-/* this needs to be deleted too this is a temp font */
+/* Body and Global settings */
 
 body {
-    background-color: #E7E7E7;
+    background: var(--c-spire-white, #FFF);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    /* font-family: 'Tablet Gothic Narrow', sans-serif; */
-    /* Delete this for full release use the C-Spire font */
-    font-family: 'Gothic A1', sans-serif;
+    font-family: 'Tablet Gothic Narrow', sans-serif;
+}
+
+
+/* Flipbook container settings */
+
+#mainContainer {
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    height: 80vh;
+    box-shadow: 0px 50px 50px 0px rgba(0, 0, 0, 0.332);
+    border-radius: 20px;
+    background: var(--neutral-stone-washed-white, #F7F9FB);
+    padding: 2%;
+    transition: all 0.3s ease-in-out;
+}
+
+#mainContainer .progressBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(40%);
 }
 
 #flipbook {
     display: flex;
-    justify-content: space-around;
-    width: 80vw;
-    height: 80vh;
+    justify-content: center;
     align-items: center;
-    box-shadow: 0px 50px 50px 0px rgba(0, 0, 0, 0.332);
+    width: 90vw;
+    height: 65vh;
     border-radius: 20px;
-    background: linear-gradient(194deg, #0F3D58 0%, #00C0F3 100%);
-    /* background: linear-gradient(194deg, #00C0F3 0%, #CCF2FD 100%); */
-    padding: 20px;
-    transition: all 0.3s ease-in-out;
 }
 
+
+/* Image container settings */
+
 #flipbook .img-container {
-    flex: 1;
-    max-height: 100vh;
-    overflow: show;
+    flex: 0.8;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 5%;
+    margin-left: 5%;
 }
+
+
+/* Image settings */
 
 #flipbook .img-container img {
     object-fit: contain;
-    max-height: 75vh;
+    max-height: 45vh;
     border-radius: 15px;
-    box-shadow: 10px 0px 100px -20px rgb(0, 0, 0);
+    margin-right: 7%;
 }
+
+
+/* Text and Button container settings */
 
 #flipbook .text-buttons {
     display: flex;
-    flex: 1;
     flex-direction: column;
-    justify-content: center;
-    height: 60%;
-    align-items: center;
+    flex: 1.2;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 20px;
-    margin-right: 8%;
-    margin-left: 0%;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
 }
+
+
+/* Text container settings */
 
 #flipbook #text-container {
-    display: flex;
     flex: 1;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    text-align: center;
+    text-align: left;
+    transform: translateY(9%);
+    transition: all 0.3s ease-in-out;
 }
 
-#flipbook p {
-    color: #FFF;
-    text-align: center;
-    font-size: 40px;
-    /* font-family: 'Tablet Gothic Narrow', sans-serif; */
-    /* Delte this for full release use the C-Spire font */
-    font-family: 'Gothic A1', sans-serif;
-    font-weight: 700;
+
+/*  container settings */
+
+#flipbook .steps-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding-left: 0;
+    margin: 0;
+    transition: height 0.5s ease-in-out;
 }
+
+.steps-container li {
+    transition: opacity 0.3s ease-in-out;
+}
+
+
+/* List item settings */
+
+#flipbook li {
+    color: var(--neutral-slate-black, #131E29);
+    font-size: 16px;
+    font-family: 'Tablet Gothic Narrow', sans-serif;
+    font-weight: 325;
+    margin: 10px;
+    overflow: visible;
+    white-space: nowrap;
+    letter-spacing: 0.32px;
+    transition: all 0.3s ease-in-out;
+}
+
+#flipbook ol {
+    line-height: 2;
+    margin-bottom: 10px;
+    padding: 0;
+    margin-left: 1%;
+}
+
+
+/* Paragraph settings */
+
+#flipbook p {
+    color: var(--primary-steel-blue, #0F3D58);
+    font-size: 32px;
+    font-family: Tablet Gothic Narrow;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: 0.32px;
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* Button container settings */
+
+
+/* .button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+    position: absolute;
+    bottom: 23%;
+    left: 46.5%;
+} */
 
 .button-container {
     display: flex;
-    justify-content: space-between;
-    width: 420px;
+    justify-content: flex-start;
+    gap: 50px;
+    margin-top: 35px;
+    position: relative;
+    width: 200px;
+    transition: all 0.3s ease-in-out;
 }
+
+
+/* Flipbook button settings */
 
 .flipbook-button {
-    width: 200px;
+    width: 100px;
     height: 50px;
-    flex-shrink: 0;
-    border-radius: 99px;
+    border-radius: 160px;
     border: 2px solid #00C0F3;
-    background: rgba(255, 255, 255, 0.36);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
-    line-height: 16px;
-    /* font-family: 'Tablet Gothic Narrow', sans-serif; */
-    /* Delte this for full release use the C-Spire font */
-    font-family: 'Gothic A1', sans-serif;
-    font-weight: 700;
     text-transform: uppercase;
-    color: var(--grayscale-white, #FFF);
-    text-align: center;
+    background: var(--primary-cyan, #00C0F3);
+    color: var(--neutral-white, #FFF);
+    font-size: 15px;
+    font-family: Tablet Gothic Narrow;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.32px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    position: absolute;
+    left: 0;
+    transition: all 0.7s ease-in-out;
+    opacity: 0;
 }
 
-#prev span,
-#next span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 23.75px;
-    flex-direction: column;
-    flex-shrink: 0;
-    margin-top: 1%;
+#prev {
+    left: 0;
 }
+
+#next {
+    left: 0;
+}
+
+
+/* Flipbook button hover state */
 
 #flipbook button:hover {
-    background-color: #0F3D58;
-    color: #FFF;
+    background-color: #FFF;
+    color: #00C0F3;
     transform: scale(1.01);
 }
 
-#flipbook .text {
-    font-size: 500px;
-}
 
-
-/* DropDown Menu */
+/* DropDown Menu container */
 
 .dropdown {
     position: relative;
     display: inline-block;
-    top: -45%;
-    left: 94%;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    min-width: 160px;
-    z-index: 1;
-    transform-origin: top;
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
-    right: 100%;
-    top: 20%;
-    width: 0;
-    flex-direction: row;
-    overflow: hidden;
-}
-
-.dropdown-content a {
-    color: rgb(193, 193, 193);
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-weight: 100;
-    transition: opacity 0.5s ease-in-out;
-    opacity: 0;
-}
-
-.dropdown-content a:hover {
-    color: #FFF;
-    font-weight: 700;
-}
-
-.dropbtn {
-    background-color: #0F3D58;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 100%;
-    transition: transform 0.2s;
-}
-
-.dropbtn .bar1,
-.dropbtn .bar2,
-.dropbtn .bar3 {
-    width: 35px;
-    height: 5px;
-    background-color: #fff;
-    margin: 6px 0;
-    transition: 0.4s;
-}
-
-
-/* Make the Hamburger turn into an X */
-
-.rotate .bar1 {
-    transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-.rotate .bar2 {
-    opacity: 0;
-}
-
-.rotate .bar3 {
-    transform: rotate(45deg) translate(-9px, -6px);
+    visibility: hidden;
 }

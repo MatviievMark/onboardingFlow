@@ -4,40 +4,92 @@
 <head>
     <title>Image Flipbook</title>
     <link rel='stylesheet' type="text/css" href='/styles.css'>
-    <!--    <style>-->
+    <link rel='stylesheet' type="text/css" href='/styles2.css'>
 
-    <!--    </style>-->
-    <link rel='stylesheet' type="text/css" href='styles.css'>
 </head>
 
 <body>
-    <div id='flipbook'>
-        <div class="dropdown">
-            <button class="dropbtn" id="dropdownButton">
+    <div id="mainContainer">
+        <!-- Progress Bar  -->
+        <div class="progressBar">
+            <div class="nabber">
+                <div class="point-container" id="point1">
+                    <div class="point"></div>
+                    <div class="point-text">Turn On Family Sharing</div>
+                </div>
+                <div class="bar">
+                    <div class="inner-bar"></div>
+                </div>
+
+                <div class="point-container" id="point2">
+                    <div class="point"></div>
+                    <div class="point-text hidden">Add Child to Family Sharing</div>
+                </div>
+                <div class="bar">
+                    <div class="inner-bar"></div>
+                </div>
+
+                <div class="point-container" id="point3">
+                    <div class="point"></div>
+                    <div class="point-text hidden">Set Up Screen Time Parental Controls</div>
+                </div>
+                <div class="bar">
+                    <div class="inner-bar"></div>
+                </div>
+
+                <div class="point-container" id="point4">
+                    <div class="point"></div>
+                    <div class="point-text hidden">Adjust Critical Screen Time Settings</div>
+                </div>
+                <div class="bar">
+                    <div class="inner-bar"></div>
+                </div>
+
+                <div class="point-container" id="point5">
+                    <div class="point"></div>
+                    <div class="point-text hidden">Sign into Child's Apple ID on Child's Phone</div>
+                </div>
+            </div>
+        </div>
+        <div id='flipbook'>
+            <!-- The reason the dropdown is still here is to automatically sellect the iphone  -->
+            <div class="dropdown">
+                <button class="dropbtn" id="dropdownButton">
             <div class="bar1"></div>
             <div class="bar2"></div>
             <div class="bar3"></div>
         </button>
-            <div class="dropdown-content" id="dropdownContent">
-                <a href="#" id="watchLink">Watch</a>
-                <a href="#" id="iphoneLink">iPhone</a>
+                <div class="dropdown-content" id="dropdownContent">
+                    <a href="#" id="watchLink">Watch</a>
+                    <a href="#" id="iphoneLink">iPhone</a>
+                </div>
             </div>
-        </div>
-        <div class="img-container">
-            <img src='docum/1.jpg' alt='Image'>
-        </div>
-        <div class='text-buttons'>
-            <div id='text-container'>
-                <p id='text'></p>
+
+
+
+            <div class="img-container">
+                <img src='documiPhone/1.png' alt='Image'>
+
+                <img src='documiPhone/1.png' alt='Image'>
             </div>
-            <div class='button-container'>
-                <button id='prev' class='flipbook-button'><span>BACK</span></button>
-                <button id='next' class='flipbook-button'><span>NEXT</span></button>
+            <div class='text-buttons'>
+                <div id='text-container'>
+                    <p id='text'></p>
+                    <div class="steps-container">
+                        <ol type="1">
+                            <li>Access your Apple ID very top under Settings</li>
+                            <li>Access “Family Sharing” (pictured)</li>
+                            <li>Add child to Family Sharing by clicking symbol (top right)</li>
+                        </ol>
+                    </div>
+                    <div class='button-container'>
+                        <button id='prev' class='flipbook-button'><span>BACK</span></button>
+                        <button id='next' class='flipbook-button'><span>NEXT</span></button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-
 
     <script src='script.js'></script>
 </body>

@@ -1,0 +1,42 @@
+[{
+        "title": "Turn on Family Sharing",
+        "subtexts": [
+            "Access your Apple ID (very top under Settings)",
+            "Access 'Family Sharing' (pictured)",
+            "Add child to Family Sharing by clicking the '+' symbol (top right)"
+        ]
+    },
+    {
+        "title": "Add Child to Family Sharing",
+        "subtexts": [
+            "Select 'Create Child Account' (pictured)",
+            "Add child's name and date of birth",
+            "Verify you're an adult by entering CVV(or add credit car if one is not attached to your Apple ID)",
+            "Click 'Agree' to terms",
+            "Create child's 'Apple ID' or click 'Already have an email address"
+        ]
+    },
+    {
+        "title": "Set Up Screen Time Parental Controls",
+        "subtexts": [
+            "Click “Turn on Screen Time” to set up parental controls (pictured). Tip: set our recommended restrictions (pictured) before clicking “Turn on restrictions” to lock down access.",
+            "Follow the prompts to finish setting up Screen Time including turning on “Communications Safety,” setting “Downtime,” and enabling “Share Location.”"
+        ]
+    },
+    {
+        "title": "Adjust Critical Screen Time Settings",
+        "subtexts": [
+            "Access “Screen Time” in Settings (pictured) and select your child’s name.",
+            "Click “Content & Privacy Restrictions” then scroll to the “Allow Changes” section and set ALL to “Don’t Allow” (pictured).",
+            "Add child to Family Sharing by clicking the '+' symbol (top right)"
+        ]
+    },
+    {
+        "title": "Sign into Child’s Apple ID on Child’s Phone",
+        "subtexts": [
+            "Go to “Settings” > “Sign into your iPhone” and sign into your child’s Apple ID.",
+            "Enter “Two Factor Authentication” code sent to the parent’s device.",
+            "You’re ready to go! Parental Controls will be automatically updated."
+        ]
+    }
+]

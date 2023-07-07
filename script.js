@@ -5,8 +5,39 @@ const textElement = document.getElementById("text");
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 let stepsContainer = document.querySelector(".steps-container");
+var textP = document.querySelector(".text-buttons");
 
 let currentJSONFile = "";
+let stepHeights = [];
+let i = 1;
+let lastImageReached = false;
+
+function fadeIn(element) {
+  var opacity = 0; // initial opacity
+  element.style.visibility = "visible";
+  var timer = setInterval(function () {
+    if (opacity >= 1) {
+      clearInterval(timer);
+    }
+    element.style.opacity = opacity;
+    opacity += 0.06;
+  }, 5);
+}
+
+function fadeOut(element) {
+  return new Promise((resolve, reject) => {
+    var opacity = 1; // initial opacity
+    var timer = setInterval(function () {
+      if (opacity <= 0) {
+        clearInterval(timer);
+        element.style.visibility = "hidden";
+        resolve(); // Resolve the promise
+      }
+      element.style.opacity = opacity;
+      opacity -= 0.06;
+    }, 5);
+  });
+}
 
 function loadJSON(jsonFile) {
   currentImage = 0;
@@ -17,6 +48,7 @@ function loadJSON(jsonFile) {
     .then((data) => {
       imageTexts = data;
       totalImages = imageTexts.length;
+      stepHeights = new Array(totalImages).fill(0);
       console.log(imageTexts.length);
       changeImage();
     });
@@ -30,7 +62,19 @@ document.getElementById("iphoneLink").addEventListener("click", function () {
   loadJSON("iphoneText.json");
 });
 
-function changeImage() {
+function getPointIndex(imageIndex) {
+  // Assuming totalImages is always greater than or equal to points.length
+  let imagesPerPoint = Math.floor(totalImages / points.length);
+  return Math.floor(imageIndex / imagesPerPoint);
+}
+
+function setImage(index) {
+  let imgElement = document.querySelector(".img-container img"); // select your image element
+  imgElement.src = `documiPhone/${index}.png`; // replace 'documiPhone/${index}.png' with the actual path to your images
+}
+
+async function changeImage() {
+  await fadeOut(stepsContainer);
   let imageFolder =
     currentJSONFile === "watchText.json" ? "docum/" : "documiPhone/";
   flipbook.querySelector("img").src = imageFolder + (currentImage + 1) + ".png";
@@ -38,8 +82,10 @@ function changeImage() {
 
   let oldHeight = stepsContainer.offsetHeight;
 
-  // Clear previous list elements
   stepsContainer.innerHTML = "";
+
+  let pointIndex = getPointIndex(currentImage);
+  points[pointIndex].click();
 
   // Add new list elements for each subtext
   imageTexts[currentImage].subtexts.forEach((subtext, index) => {
@@ -48,20 +94,23 @@ function changeImage() {
     stepsContainer.appendChild(li);
   });
 
+  if (currentImage === totalImages - 1) {
+    stepsContainer.style.height = oldHeight + "px";
+    let newHeight = stepsContainer.offsetHeight;
+    stepsContainer.offsetHeight; // Force a reflow
+    stepsContainer.style.height = newHeight + "px";
+  } else {
+    stepsContainer.style.height = "auto";
+
+    let newHeight = stepsContainer.offsetHeight;
+
+    stepsContainer.style.height = oldHeight + "px";
+    stepsContainer.offsetHeight; // Force a reflow
+    stepsContainer.style.height = newHeight + "px";
+  }
   setTimeout(function () {
-    let listItems = stepsContainer.getElementsByTagName("li");
-    for (let item of listItems) {
-      item.style.opacity = "1";
-    }
-  }, 100);
-
-  let newHeight = stepsContainer.offsetHeight;
-
-  // Animate from the old height to the new height
-  stepsContainer.style.height = oldHeight + "px";
-  stepsContainer.offsetHeight; // Force a reflow
-  stepsContainer.style.height = newHeight + "px";
-  console.log(stepsContainer.offsetHeight);
+    fadeIn(stepsContainer);
+  }, 150);
 }
 
 stepsContainer.addEventListener("transitionend", function () {
@@ -74,11 +123,24 @@ function buttonTransition() {
     nextButton.style.opacity = "0";
     nextButton.style.pointerEvents = "none";
     prevButton.style.right = "0";
+    console.log("currImg > totalImg");
+  } else if (currentImage <= 0) {
+    prevButton.style.transform = "translateX(0)";
+    nextButton.style.transform = "translateX(-120px)";
+    prevButton.style.opacity = "0";
+    prevButton.style.pointerEvents = "none";
+    nextButton.style.right = "0";
+    console.log("currImg < 0");
   } else {
     nextButton.style.transform = "translateX(0)";
     nextButton.style.opacity = "1";
     nextButton.style.pointerEvents = "auto";
+    prevButton.style.transform = "translateX(0)";
+    prevButton.style.opacity = "1";
+    prevButton.style.pointerEvents = "auto";
+    nextButton.style.right = "120px";
     prevButton.style.right = "120px";
+    console.log("0 < currImg < totalImg");
   }
 
   if (currentImage < 0) {
@@ -179,6 +241,10 @@ points.forEach((point, index) => {
         .className.replace(" first", "")
         .replace(" last", "");
     });
+
+    let imagesPerPoint = Math.floor(totalImages / points.length);
+    currentImage = index * imagesPerPoint;
+    // Change the image to the one corresponding to this point
 
     if (previousPoint) {
       previousPoint.querySelector(".point").className += " completed";

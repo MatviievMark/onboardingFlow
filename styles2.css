@@ -47,7 +47,7 @@
     height: 2px;
     background: var(--neutral-light-stone);
     border-radius: 500px;
-    margin-top: -10%;
+    margin-top: -8.3%;
     position: relative;
     overflow: hidden;
     height: 4px;
@@ -78,7 +78,7 @@
     letter-spacing: 0.28px;
     text-transform: capitalize;
     visibility: hidden;
-    margin-top: 30px;
+    margin-top: 20%;
     max-width: 50px;
     overflow: visible;
     white-space: nowrap;

@@ -1,42 +1,61 @@
 [{
-        "title": "Turn on Family Sharing",
+        "deviceType": "Parent's Device",
+        "title": "turn on family sharing",
         "subtexts": [
-            "Access your Apple ID (very top under Settings)",
-            "Access 'Family Sharing' (pictured)",
-            "Add child to Family Sharing by clicking the '+' symbol (top right)"
-        ]
+            "Go to Settings and tap your Apple ID at the top",
+            "Tap “Family Sharing”",
+            "Tap the “+” icon in the top right to add a family member"
+        ],
+        "images": ["/iphoneDocumLite/1.PNG", "/iphoneDocumLite/2.PNG"],
+        "additionalInfo": "Haven’t activated your iPhone yet? <a href='https://example.com/guide'>Check out our guide here.</a>"
+
     },
     {
-        "title": "Add Child to Family Sharing",
+        "deviceType": "Parent's Device",
+        "title": "add child to family sharing",
         "subtexts": [
-            "Select 'Create Child Account' (pictured)",
-            "Add child's name and date of birth",
-            "Verify you're an adult by entering CVV(or add credit car if one is not attached to your Apple ID)",
-            "Click 'Agree' to terms",
-            "Create child's 'Apple ID' or click 'Already have an email address"
-        ]
+            "Select “Create Child Account,” enter your kid’s info, and tap “Verify You’re an Adult”",
+            "Provide or verify your existing payment method",
+            "Create your kid’s Apple ID or use an existing one"
+        ],
+        "images": ["/iphoneDocumLite/3.PNG", "/iphoneDocumLite/4.PNG"],
+        "additionalInfo": ""
+
+
     },
     {
-        "title": "Set Up Screen Time Parental Controls",
+        "deviceType": "Parent's Device",
+        "title": "set up screen time",
         "subtexts": [
-            "Click “Turn on Screen Time” to set up parental controls (pictured). Tip: set our recommended restrictions (pictured) before clicking “Turn on restrictions” to lock down access.",
-            "Follow the prompts to finish setting up Screen Time including turning on “Communications Safety,” setting “Downtime,” and enabling “Share Location.”"
-        ]
+            "Tap “Turn On Screen Time” when prompted",
+            "Do not tap “Turn On Restrictions” yet",
+            "Change your restrictions to match our recommendations (see pictured) and then tap “Turn On Restrictions”",
+            "Follow the prompts to set up Communication Safety, Downtime and Share Location"
+        ],
+        "images": ["/iphoneDocumLite/5.PNG", "/iphoneDocumLite/6.PNG"],
+        "additionalInfo": ""
     },
     {
-        "title": "Adjust Critical Screen Time Settings",
+        "deviceType": "Parent's Device",
+        "title": "adjust other screen time settings",
         "subtexts": [
-            "Access “Screen Time” in Settings (pictured) and select your child’s name.",
-            "Click “Content & Privacy Restrictions” then scroll to the “Allow Changes” section and set ALL to “Don’t Allow” (pictured).",
-            "Add child to Family Sharing by clicking the '+' symbol (top right)"
-        ]
+            "Go to Settings, tap “Screen Time” and tap on your kid’s name",
+            "Tap Content & Privacy Restriction, go to “Allow Changes,” and set all to “Don’t Allow”",
+            "Tap “Allowed Apps” and set your restrictions to match our recommendations (see pictured)"
+        ],
+        "images": ["/iphoneDocumLite/7.PNG", "/iphoneDocumLite/8.PNG"],
+        "additionalInfo": ""
+
     },
     {
-        "title": "Sign into Child’s Apple ID on Child’s Phone",
+        "deviceType": "Kid's Device",
+        "title": "Signing in on your kid’s device",
         "subtexts": [
-            "Go to “Settings” > “Sign into your iPhone” and sign into your child’s Apple ID.",
-            "Enter “Two Factor Authentication” code sent to the parent’s device.",
-            "You’re ready to go! Parental Controls will be automatically updated."
-        ]
+            "On their iPhone, go to Settings and tap “Sign in to your iPhone”",
+            "Sign in with the Apple ID you created for your kid and enter the verification code sent to the parent’s iPhone",
+            "Enter an iPhone passcode for your kid’s device if prompted"
+        ],
+        "images": ["/iphoneDocumLite/9.PNG", "/iphoneDocumLite/10.PNG"],
+        "additionalInfo": "Haven’t activated your iPhone yet? <a href='https://example.com/guide'>Check out our guide here.</a>"
     }
 ]

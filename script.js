@@ -1,14 +1,13 @@
 let currentImage = 0;
 let totalImages = 75;
-const flipbook = document.getElementById("flipbook");
 const textElement = document.getElementById("text");
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 let stepsContainer = document.querySelector(".steps-container");
 var textP = document.querySelector(".text-buttons");
+let isTransitionRunning = false;
 
 let currentJSONFile = "";
-let stepHeights = [];
 let i = 1;
 let lastImageReached = false;
 
@@ -48,7 +47,6 @@ function loadJSON(jsonFile) {
     .then((data) => {
       imageTexts = data;
       totalImages = imageTexts.length;
-      stepHeights = new Array(totalImages).fill(0);
       console.log(imageTexts.length);
       changeImage();
     });
@@ -74,14 +72,40 @@ function setImage(index) {
 }
 
 async function changeImage() {
+  if (isTransitionRunning) {
+    return;
+  }
+
+  isTransitionRunning = true;
   await fadeOut(stepsContainer);
-  let imageFolder =
-    currentJSONFile === "watchText.json" ? "docum/" : "documiPhone/";
-  flipbook.querySelector("img").src = imageFolder + (currentImage + 1) + ".png";
+
+  let imageElements = document.querySelectorAll(".img-container img"); // select your image elements
+
+  // Make sure there are the correct amount of image elements
+  while (imageElements.length < imageTexts[currentImage].images.length) {
+    let img = document.createElement("img");
+    img.alt = "Image";
+    document.querySelector(".img-container").appendChild(img);
+    imageElements = document.querySelectorAll(".img-container img"); // update the array of image elements
+  }
+
+  // Device type
+  document.querySelector(".deviceType").textContent =
+    imageTexts[currentImage].deviceType;
+
+  // HyperLink
   textElement.textContent = imageTexts[currentImage].title;
+  let additionalInfoElement = document.querySelector(".additionalInfo");
+  additionalInfoElement.innerHTML = imageTexts[currentImage].additionalInfo;
 
-  let oldHeight = stepsContainer.offsetHeight;
+  // Update the sources of the image elements
+  imageTexts[currentImage].images.forEach((image, index) => {
+    if (imageElements[index]) {
+      imageElements[index].src = image;
+    }
+  });
 
+  textElement.textContent = imageTexts[currentImage].title;
   stepsContainer.innerHTML = "";
 
   let pointIndex = getPointIndex(currentImage);
@@ -94,28 +118,33 @@ async function changeImage() {
     stepsContainer.appendChild(li);
   });
 
-  if (currentImage === totalImages - 1) {
-    stepsContainer.style.height = oldHeight + "px";
-    let newHeight = stepsContainer.offsetHeight;
-    stepsContainer.offsetHeight; // Force a reflow
-    stepsContainer.style.height = newHeight + "px";
-  } else {
-    stepsContainer.style.height = "auto";
-
-    let newHeight = stepsContainer.offsetHeight;
-
-    stepsContainer.style.height = oldHeight + "px";
-    stepsContainer.offsetHeight; // Force a reflow
-    stepsContainer.style.height = newHeight + "px";
-  }
   setTimeout(function () {
     fadeIn(stepsContainer);
   }, 150);
+
+  console.log("changeImage()");
+  isTransitionRunning = false;
 }
 
-stepsContainer.addEventListener("transitionend", function () {
-  this.style.height = "auto";
-});
+// let oldHeight = stepsContainer.offsetHeight;
+// if (currentImage === totalImages - 1) {
+//   stepsContainer.style.height = oldHeight + "px";
+//   let newHeight = stepsContainer.offsetHeight;
+//   stepsContainer.offsetHeight; // Force a reflow
+//   stepsContainer.style.height = newHeight + "px";
+// } else {
+//   stepsContainer.style.height = "auto";
+
+//   let newHeight = stepsContainer.offsetHeight;
+
+//   stepsContainer.style.height = oldHeight + "px";
+//   stepsContainer.offsetHeight; // Force a reflow
+//   stepsContainer.style.height = newHeight + "px";
+// }
+
+// stepsContainer.addEventListener("transitionend", function () {
+//   this.style.height = "auto";
+// });
 
 function buttonTransition() {
   if (currentImage >= totalImages - 1) {
@@ -146,9 +175,15 @@ function buttonTransition() {
   if (currentImage < 0) {
     currentImage = totalImages - 1;
   }
+  if (isTransitionRunning) {
+    return;
+  }
 }
 
 function nextImage() {
+  if (isTransitionRunning) {
+    return;
+  }
   currentImage++;
   if (currentImage >= totalImages) {
     currentImage = 0;
@@ -160,6 +195,9 @@ function nextImage() {
 }
 
 function prevImage() {
+  if (isTransitionRunning) {
+    return;
+  }
   currentImage--;
   if (currentImage < 0) {
     currentImage = totalImages - 1;
@@ -242,9 +280,26 @@ points.forEach((point, index) => {
         .replace(" last", "");
     });
 
+    if (this.classList.contains("disabled")) {
+      return;
+    }
+
+    points.forEach((p) => {
+      p.classList.add("disabled");
+    });
+
     let imagesPerPoint = Math.floor(totalImages / points.length);
     currentImage = index * imagesPerPoint;
     // Change the image to the one corresponding to this point
+
+    if (!isTransitionRunning) {
+      await changeImage();
+      console.log(`isTransitionRunning = ${isTransitionRunning}`);
+    }
+
+    points.forEach((p) => {
+      p.classList.remove("disabled");
+    });
 
     if (previousPoint) {
       previousPoint.querySelector(".point").className += " completed";

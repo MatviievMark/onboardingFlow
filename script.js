@@ -4,12 +4,40 @@ const textElement = document.getElementById("text");
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 let stepsContainer = document.querySelector(".steps-container");
-var textP = document.querySelector(".text-buttons");
 let isTransitionRunning = false;
 
 let currentJSONFile = "";
-let i = 1;
 let lastImageReached = false;
+let images = document.querySelectorAll(
+  '.img-container img:not([class^="zoom-icon"])'
+);
+let zoomIcons = document.querySelectorAll(
+  '.img-container img[class^="zoom-icon"]'
+);
+let overlay = document.querySelector(".overlay");
+
+for (let i = 0; i < zoomIcons.length; i++) {
+  zoomIcons[i].addEventListener("click", function () {
+    if (images[i].style.transform === "") {
+      images[i].style.transform = "scale(1.5)";
+      images[i].classList.add("zoomed-in");
+      overlay.style.display = "block";
+      images[i].style.transform += " translate(50%, -5%)";
+    } else {
+      images[i].style.transform = "";
+      images[i].classList.remove("zoomed-in");
+      overlay.style.display = "none";
+    }
+  });
+}
+
+overlay.addEventListener("click", function () {
+  images.forEach(function (img) {
+    img.style.transform = "";
+    img.classList.remove("zoomed-in");
+  });
+  overlay.style.display = "none";
+});
 
 function fadeIn(element) {
   var opacity = 0; // initial opacity
@@ -38,11 +66,11 @@ function fadeOut(element) {
   });
 }
 
-function loadJSON(jsonFile) {
+function loadJSON() {
   currentImage = 0;
-  currentJSONFile = jsonFile;
+  currentJSONFile = "iphoneText.json"; // Hardcoding the file selection to "iphoneText.json"
 
-  fetch(jsonFile)
+  fetch(currentJSONFile)
     .then((response) => response.json())
     .then((data) => {
       imageTexts = data;
@@ -52,13 +80,7 @@ function loadJSON(jsonFile) {
     });
 }
 
-document.getElementById("watchLink").addEventListener("click", function () {
-  loadJSON("watchText.json");
-});
-
-document.getElementById("iphoneLink").addEventListener("click", function () {
-  loadJSON("iphoneText.json");
-});
+loadJSON();
 
 function getPointIndex(imageIndex) {
   // Assuming totalImages is always greater than or equal to points.length
@@ -96,6 +118,8 @@ async function changeImage() {
   // HyperLink
   textElement.textContent = imageTexts[currentImage].title;
   let additionalInfoElement = document.querySelector(".additionalInfo");
+
+  await fadeOut(additionalInfoElement);
   additionalInfoElement.innerHTML = imageTexts[currentImage].additionalInfo;
 
   // Update the sources of the image elements
@@ -121,30 +145,13 @@ async function changeImage() {
   setTimeout(function () {
     fadeIn(stepsContainer);
   }, 150);
+  setTimeout(function () {
+    fadeIn(additionalInfoElement);
+  }, 150);
 
   console.log("changeImage()");
   isTransitionRunning = false;
 }
-
-// let oldHeight = stepsContainer.offsetHeight;
-// if (currentImage === totalImages - 1) {
-//   stepsContainer.style.height = oldHeight + "px";
-//   let newHeight = stepsContainer.offsetHeight;
-//   stepsContainer.offsetHeight; // Force a reflow
-//   stepsContainer.style.height = newHeight + "px";
-// } else {
-//   stepsContainer.style.height = "auto";
-
-//   let newHeight = stepsContainer.offsetHeight;
-
-//   stepsContainer.style.height = oldHeight + "px";
-//   stepsContainer.offsetHeight; // Force a reflow
-//   stepsContainer.style.height = newHeight + "px";
-// }
-
-// stepsContainer.addEventListener("transitionend", function () {
-//   this.style.height = "auto";
-// });
 
 function buttonTransition() {
   if (currentImage >= totalImages - 1) {
@@ -152,14 +159,12 @@ function buttonTransition() {
     nextButton.style.opacity = "0";
     nextButton.style.pointerEvents = "none";
     prevButton.style.right = "0";
-    console.log("currImg > totalImg");
   } else if (currentImage <= 0) {
     prevButton.style.transform = "translateX(0)";
     nextButton.style.transform = "translateX(-120px)";
     prevButton.style.opacity = "0";
     prevButton.style.pointerEvents = "none";
     nextButton.style.right = "0";
-    console.log("currImg < 0");
   } else {
     nextButton.style.transform = "translateX(0)";
     nextButton.style.opacity = "1";
@@ -169,7 +174,6 @@ function buttonTransition() {
     prevButton.style.pointerEvents = "auto";
     nextButton.style.right = "120px";
     prevButton.style.right = "120px";
-    console.log("0 < currImg < totalImg");
   }
 
   if (currentImage < 0) {
@@ -223,43 +227,6 @@ document.addEventListener("keydown", (event) => {
 prevButton.addEventListener("click", prevImage);
 nextButton.addEventListener("click", nextImage);
 
-document
-  .getElementById("dropdownButton")
-  .addEventListener("click", function () {
-    this.classList.toggle("rotate");
-    var dropdownContent = document.getElementById("dropdownContent");
-    if (this.style.transform === "rotate(90deg)") {
-      this.style.transform = "";
-      dropdownContent.style.pointerEvents = "none"; // Add this
-      dropdownContent.style.width = "0";
-      dropdownContent.style.transform = "translateX(100%)";
-      Array.from(dropdownContent.children).forEach(function (child) {
-        child.style.opacity = "0";
-      });
-      setTimeout(function () {
-        dropdownContent.style.display = "none";
-        dropdownContent.style.pointerEvents = "auto";
-      }, 500);
-    } else {
-      this.style.transform = "rotate(90deg)";
-      dropdownContent.style.display = "flex";
-      dropdownContent.style.pointerEvents = "none";
-      setTimeout(function () {
-        dropdownContent.style.width = "auto";
-        dropdownContent.style.transform = "translateX(0)";
-        Array.from(dropdownContent.children).forEach(function (child) {
-          child.style.opacity = "1";
-        });
-        setTimeout(function () {
-          dropdownContent.style.pointerEvents = "auto";
-        }, 500);
-      }, 0);
-    }
-  });
-
-// Selet the iPhone by default
-document.getElementById("iphoneLink").click();
-
 let points = document.querySelectorAll(".point-container");
 let bars = document.querySelectorAll(".bar .inner-bar"); // select the inner bars
 let previousPoint = null;
@@ -294,7 +261,6 @@ points.forEach((point, index) => {
 
     if (!isTransitionRunning) {
       await changeImage();
-      console.log(`isTransitionRunning = ${isTransitionRunning}`);
     }
 
     points.forEach((p) => {

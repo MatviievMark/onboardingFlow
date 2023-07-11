@@ -1,3 +1,41 @@
+@media only screen and (max-width: 768px) {
+    #mainContainer {
+        width: 80%;
+        height: 80%;
+        margin: auto;
+        padding: 20px;
+    }
+    .img-container img {
+        width: 200%;
+        /* transform: translate(54.5%, -25%); */
+    }
+    .img-container {
+        bottom: 16%;
+        left: 24%;
+    }
+    .text-buttons {
+        margin-top: 50px;
+        height: 50%;
+    }
+    #flipbook #text-container {
+        height: 50%;
+    }
+    .button-container {
+        flex-direction: row;
+        bottom: 72%;
+    }
+    .flipbook-button {
+        margin: 20px;
+    }
+    .progressBar {
+        flex-direction: row;
+    }
+    .bar {
+        width: 60px;
+        height: 10px;
+    }
+}
+
 body {
     background: var(--c-spire-white, #FFF);
     display: flex;
@@ -42,7 +80,8 @@ body {
     align-items: center;
     justify-content: center;
     margin-right: 5%;
-    margin-left: 3%;
+    margin-left: 11%;
+    position: relative;
 }
 
 #flipbook .img-container img {
@@ -50,6 +89,32 @@ body {
     max-height: 55vh;
     border-radius: 15px;
     margin-right: 7%;
+}
+
+.zoom-icon1,
+.zoom-icon2 {
+    position: absolute;
+    bottom: -9%;
+    max-width: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.zoom-icon1 {
+    left: 34%;
+}
+
+.zoom-icon2 {
+    left: 89%;
+}
+
+.zoom-icon1:hover {
+    transform: scale(1.5);
+}
+
+.zoom-icon2:hover {
+    transform: scale(1.5);
 }
 
 #flipbook .text-buttons {
@@ -61,6 +126,7 @@ body {
     gap: 20px;
     height: 100%;
     transition: all 0.3s ease-in-out;
+    position: relative;
 }
 
 #flipbook #text-container {
@@ -158,13 +224,10 @@ body {
     width: 100px;
     height: 50px;
     border-radius: 160px;
-    border: 2px solid #00C0F3;
     display: flex;
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
-    background: var(--primary-cyan, #00C0F3);
-    color: var(--neutral-white, #FFF);
     font-size: 15px;
     font-family: Tablet Gothic Narrow;
     font-weight: 600;
@@ -180,13 +243,25 @@ body {
 
 #prev {
     left: 0;
+    border: 2px solid #00C0F3;
+    background: var(--neutral-white, #FFF);
+    color: #00C0F3;
 }
 
 #next {
     left: 0;
+    border: 2px solid #00C0F3;
+    background: var(--primary-cyan, #00C0F3);
+    color: var(--neutral-white, #FFF);
 }
 
-#flipbook button:hover {
+#prev:hover {
+    background-color: #00C0F3;
+    color: #FFF;
+    transform: scale(1.01);
+}
+
+#next:hover {
     background-color: #FFF;
     color: #00C0F3;
     transform: scale(1.01);
@@ -197,3 +272,28 @@ body {
     display: inline-block;
     visibility: hidden;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    display: none;
+    z-index: 9998;
+}
+
+.img-container img:not([class^="zoom-icon"]) {
+    transition: transform 0.5s ease;
+    z-index: 1;
+    position: relative;
+}
+
+.img-container img.zoomed-in {
+    z-index: 9999;
+}
+
+
+/* For devices larger than 600px */

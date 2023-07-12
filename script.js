@@ -236,7 +236,6 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 points.forEach((point, index) => {
   point.addEventListener("click", async function () {
-    // Remove the highlighted class from all points
     points.forEach((p) => {
       p.querySelector(".point").className = p
         .querySelector(".point")
@@ -257,7 +256,6 @@ points.forEach((point, index) => {
 
     let imagesPerPoint = Math.floor(totalImages / points.length);
     currentImage = index * imagesPerPoint;
-    // Change the image to the one corresponding to this point
 
     if (!isTransitionRunning) {
       await changeImage();
